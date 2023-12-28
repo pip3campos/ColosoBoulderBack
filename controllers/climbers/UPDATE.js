@@ -21,4 +21,17 @@ async function signInClimber(req,res,next){
     }
 }
 
-export { signInClimber }
+async function signOutClimber(req,res,next){
+    try {
+        const email = req.user.email
+        await Climber.findOneAndUpdate({ email: email }, { online:false }, { new:true })
+        res.json({
+            success: true,
+            message: "Sign out successful"
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { signInClimber, signOutClimber }
