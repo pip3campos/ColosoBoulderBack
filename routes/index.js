@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.use('/climbers', climbersRouter);
+router.use('/auth', climbersRouter);
 router.use('/sessions', sessionsRouter);
 
 export default router;

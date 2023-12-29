@@ -1,5 +1,5 @@
 import express from 'express';
-import { getClimbers } from '../controllers/climbers/READ.js';
+import { getClimbers, getClimber } from '../controllers/climbers/READ.js';
 import { registerClimber } from '../controllers/climbers/CREATE.js';
 import { signInClimber, signOutClimber } from '../controllers/climbers/UPDATE.js';
 import { deleteClimber } from '../controllers/climbers/DELETE.js';
@@ -17,6 +17,7 @@ let router = express.Router();
 
 /* GET users listing. */
 router.get('/', getClimbers);
+router.get('/me', passport.authenticate('jwt', { session: false }), getClimber);
 router.post('/register', validator(registerValidator), accountExists, createHash, registerClimber);
 router.put('/signin', validator(signInValidator), accountNotExists, passwordIsOk, generateToken, signInClimber);
 router.put('/signout', passport.authenticate('jwt', { session: false }), signOutClimber);
