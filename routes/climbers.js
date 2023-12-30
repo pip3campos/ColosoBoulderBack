@@ -15,7 +15,6 @@ import passport from '../middlewares/passport.js';
 
 let router = express.Router();
 
-/* GET users listing. */
 router.get('/', getClimbers);
 router.get('/me', passport.authenticate('jwt', { session: false }), getClimber);
 router.post('/register', validator(registerValidator), accountExists, createHash, registerClimber);

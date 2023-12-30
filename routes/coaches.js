@@ -1,14 +1,12 @@
 import express from 'express'
-import { getCoaches } from '../controllers/coaches/READ.js';
-import { createCoach } from '../controllers/coaches/CREATE.js';
-import { updateCoach } from '../controllers/coaches/UPDATE.js';
-import { deleteCoach } from '../controllers/coaches/DELETE.js';
+import { getCoaches, getCoach } from '../controllers/coaches/READ.js'
+import { registerCoach } from '../controllers/coaches/CREATE.js'
+import passport from '../middlewares/passport.js';
 
 const router = express.Router()
 
-router.get('/', getCoaches);
-router.post('/', createCoach);
-router.put('/:id', updateCoach);
-router.delete('/:id', deleteCoach);
+router.get('/', getCoaches)
+router.get('/me', passport.authenticate('jwt', { session: false }), getCoach)
+router.post('/addcoach', registerCoach)
 
 export default router
