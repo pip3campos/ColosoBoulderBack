@@ -1,4 +1,5 @@
 import Session from '../../models/Session.js'
+import Category from '../../models/Category.js'
 
 async function getSessions(req,res,next){
     const { email } = req.query
@@ -7,7 +8,7 @@ async function getSessions(req,res,next){
         queries.email = email
     }
     try {
-        const allSessions = await Session.find(queries)
+        const allSessions = await Session.find(queries).populate({path:'category_id'})
         return res.status(200).json({
             success: true,
             response: allSessions,
@@ -27,7 +28,7 @@ async function getSessions(req,res,next){
 async function getSession(req,res,next){
     const { id } = req.params
     try {
-        const session = await Session.findById(id)
+        const session = await Session.findById(id).populate('category_id')
         return res.status(200).json({
             success: true,
             response: session,

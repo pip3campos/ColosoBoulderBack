@@ -3,8 +3,11 @@ let collection = 'sessions'
 let schema = new Schema({
     date:{type:Date, required:true},
     duration:{type:Number, required:true},
-    category:{type:String, required:true},
-    level:{type:String, required:true},
+    category_id: {
+        type: Types.ObjectId,
+        required: true,
+        ref: 'categories'
+    },
     instructor_id:{type:Types.ObjectId, required:true},
     spots:{type:Number, required:true}
 },{timestamps:true})
