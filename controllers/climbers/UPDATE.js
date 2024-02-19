@@ -25,7 +25,7 @@ async function signOutClimber(req,res,next){
     try {
         const email = req.user.email
         await Climber.findOneAndUpdate({ email: email }, { online:false }, { new:true })
-        res.json({
+        res.status(200).json({
             success: true,
             message: "Sign out successful"
         })

@@ -1,15 +1,16 @@
 import { Schema, model, Types } from "mongoose";
 let collection = 'sessions'
 let schema = new Schema({
-    date:{type:Date, required:true},
-    duration:{type:Number, required:true},
+    startDate:{type:Date, required:true},
+    endDate:{type:Date, required:true},
     category_id: {
         type: Types.ObjectId,
         required: true,
         ref: 'categories'
     },
     instructor_id:{type:Types.ObjectId, required:true},
-    spots:{type:Number, required:true}
+    spots:{type:Number, required:true},
+    status:{type:String, default:"Active"}
 },{timestamps:true})
 const Session = model(collection, schema)
 export default Session

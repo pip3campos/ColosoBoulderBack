@@ -4,21 +4,13 @@ import Coach from "../Coach.js"
 import Climber from "../Climber.js"
 
 let coaches = [{
-    name: "alan",
-    last_name: "silva",
-    city: "antofagasta",
-    country: "chile",
-    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    fullName: "Alan Silva",
+    climber_id: 'alan@gmail.com',
     active: true,
-    climber_id: 'alan@gmail.com'
 },{
-    name: "martin",
-    last_name: "vargas",
-    city: "antofagasta",
-    country: "chile",
-    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    fullName: "Martin Vargas",
+    climber_id: "martin@gmail.com",
     active: true,
-    climber_id: "martin@gmail.com"
 }]
 
 //necesito un loop para buscar el id de cada usuario en base al correo electronico
