@@ -28,7 +28,7 @@ async function getSessions(req,res,next){
 async function getSession(req,res,next){
     const { id } = req.params
     try {
-        const session = await Session.findById(id).populate('category_id')
+        const session = await Session.findById(id).populate('category_id instructor_id')
         return res.status(200).json({
             success: true,
             response: session,

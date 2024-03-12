@@ -8,8 +8,13 @@ let schema = new Schema({
         required: true,
         ref: 'categories'
     },
-    instructor_id:{type:Types.ObjectId, required:true},
+    instructor_id:{
+        type:Types.ObjectId,
+        required:true,
+        ref: 'climbers'
+    },
     spots:{type:Number, required:true},
+    registrationList: [{type:Types.ObjectId}],
     status:{type:String, default:"Active"}
 },{timestamps:true})
 const Session = model(collection, schema)

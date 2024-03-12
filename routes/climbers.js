@@ -3,6 +3,7 @@ import { getClimbers, getClimber } from '../controllers/climbers/READ.js';
 import { registerClimber } from '../controllers/climbers/CREATE.js';
 import { signInClimber, signOutClimber } from '../controllers/climbers/UPDATE.js';
 import { deleteClimber } from '../controllers/climbers/DELETE.js';
+import verifyAccount from "../controllers/climbers/verifyAccount.js";
 import validator from './../middlewares/validator.js'
 import registerValidator from '../schemas/registerSchema.js';
 import accountExists from '../middlewares/accountExists.js';
@@ -20,6 +21,7 @@ router.get('/me', passport.authenticate('jwt', { session: false }), getClimber);
 router.post('/register', validator(registerValidator), accountExists, createHash, registerClimber);
 router.put('/signin', validator(signInValidator), accountNotExists, passwordIsOk, generateToken, signInClimber);
 router.put('/signout', passport.authenticate('jwt', { session: false }), signOutClimber);
+router.put("/verify/:verify_code", verifyAccount)
 router.delete('/:id', deleteClimber);
 
 export default router;

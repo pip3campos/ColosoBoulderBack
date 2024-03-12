@@ -6,7 +6,11 @@ let schema = new Schema({
     color:{type:String, required:true},
     description:{type:String, required:true},
     category_photo:{type:String, required:true},
-    admin_id:{type:Types.ObjectId, required:true},
+    admin_id:{
+        type:Types.ObjectId,
+        required:true,
+        ref: 'coaches'
+    },
 },{timestamps:true})
 const Category = model(collection, schema)
 export default Category
