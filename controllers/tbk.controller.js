@@ -1,41 +1,50 @@
 import pkg from 'transbank-sdk'
+import Climber from '../models/Climber.js';
 const { WebpayPlus } = pkg;
 const { Options, IntegrationApiKeys, Environment, IntegrationCommerceCodes } = pkg
 
-export const createOrder = async (req,res) => {
+async function createOrder (req,res,next) {
     const {
         buyOrder,
         sessionId,
         amount,
         returnUrl
     } = req.query
-    const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
-    const response = await tx.create(
-        buyOrder,
-        sessionId,
-        amount,
-        returnUrl
-    )
-    res.send(response)
+    try {
+        const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
+        const response = await tx.create(
+            buyOrder,
+            sessionId,
+            amount,
+            returnUrl
+        )
+        res.send(response)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-export const commitOrder = async (req,res) => {
-    const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
-    console.log(tx)
-    const response = await tx.commit(req.body.token)
-    console.log(response)
+async function statusOrder (req,res,next) {
+    const { token } = req.query
+    try {
+        const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
+        const response = await tx.status(token)
+        /* const climber = await Climber.findOneAndUpdate({ email: email }, { online:true }, { new:true }) */
+        res.send(response)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-export const statusOrder = async (req,res) => {
-    const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
-    console.log(tx)
-    const response = await tx.status(req.body.token)
-    console.log(response)
+async function refundOrder (req,res,next) {
+    const { token } = req.query
+    try {
+        const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
+        const response = await tx.refund(token, amount)
+        res.send(response)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-export const refundOrder = async (req,res) => {
-    const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
-    console.log(tx)
-    const response = await tx.refund(token, amount)
-    console.log(response)
-}
+export { createOrder, statusOrder, refundOrder }
