@@ -7,7 +7,7 @@ import paymentRouter from './payment.routes.js'
 let router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send('index');
 });
 
 router.use('/auth', climbersRouter);
