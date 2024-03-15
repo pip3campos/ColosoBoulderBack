@@ -19,13 +19,13 @@ async function getCoaches(req,res,next){
 }
 
 async function getCoach(req,res,next){
-    const { _id } = req.user
+    const { id } = req.query
     try {
-        const coach = await Coach.find({ climber_id: _id})
+        const coach = await Coach.findOne({ climber_id: id}).populate({path:'climber_id'})
         return res.status(200).json({
             success: true,
             response: coach,
-            message: "Here's the coach logged in"
+            message: "Here's the coach"
         })
     } catch (error) {
         console.log(error)

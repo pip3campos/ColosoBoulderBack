@@ -16,7 +16,7 @@ async function getClimbers(req,res){
             .skip(pagination.page > 0 ? (pagination.page-1) * pagination.limit : 0)
             .limit(pagination.limit > 0 ? pagination.limit : 0)
         const total = ( await Climber.find({}) ).length
-        let maxPages = ( total / pagination.limit) .toFixed()
+        let maxPages = Math.trunc( total / pagination.limit) + 1
         if ( maxPages > pagination.page ) { next = true }
         if ( pagination.page > 1 ) { prev = true }
         return res.status(200).json({
@@ -41,9 +41,9 @@ async function getClimbers(req,res){
 }
 
 async function getClimber(req,res,next){
-    const { id } = req.user
+    const { id } = req.query
     try {
-        const climber = await Climber.findById(id).select("-password -verify_code -verified -__v")
+        const climber = await Climber.findById(id).select("-password -verify_code -__v")
         return res.status(200).json({
             success: true,
             response: climber,

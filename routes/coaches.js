@@ -6,7 +6,7 @@ import passport from '../middlewares/passport.js';
 const router = express.Router()
 
 router.get('/', getCoaches)
-router.get('/me', passport.authenticate('jwt', { session: false }), getCoach)
+router.get('/me', getCoach)
 router.post('/addcoach', registerCoach)
 
 export default router
