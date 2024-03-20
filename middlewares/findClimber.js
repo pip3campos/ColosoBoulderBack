@@ -2,7 +2,7 @@ import Climber from '../models/Climber.js'
 
 const findClimber = async (req, res, next) =>  {
     try {
-        const climber = await Climber.findOne({ _id: req.body.instructor_id})
+        const climber = await Climber.findById( req.body.instructor_id )
         if (climber) {
             req.body.instructor_id = climber._id
             return next()

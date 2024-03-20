@@ -5,12 +5,13 @@ import { updateSession } from '../controllers/sessions/UPDATE.js';
 import { deleteSession } from '../controllers/sessions/DELETE.js';
 import findClimber from '../middlewares/findClimber.js';
 import passport from '../middlewares/passport.js';
+import findCategory from "../middlewares/findCategory.js"
 
 const router = express.Router()
 
 router.get('/', getSessions);
 router.get('/:id', getSession);
-router.post('/', findClimber, createSession);
+router.post('/', findCategory, createSession);
 router.put('/:id', passport.authenticate('jwt', { session: false }), updateSession);
 router.delete('/:id', deleteSession);
 

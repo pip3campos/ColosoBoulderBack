@@ -2,21 +2,17 @@ import Session from '../../models/Session.js'
 
 async function createSession(req,res,next) {
     const {
-        date,
-        duration,
-        level,
-        price,
-        wall,
+        startDate,
+        endDate,
+        category_id,
         instructor_id,
         spots
     } = req.body
     try {
         const newSession = await Session.create({
-            date,
-            duration,
-            level,
-            price,
-            wall,
+            startDate,
+            endDate,
+            category_id,
             instructor_id,
             spots
         })
