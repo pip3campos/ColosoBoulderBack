@@ -12,7 +12,7 @@ const router = express.Router()
 router.get('/', getSessions);
 router.get('/:id', getSession);
 router.post('/', findCategory, createSession);
-router.put('/:id', passport.authenticate('jwt', { session: false }), updateSession);
+router.put('/:id', updateSession);
 router.delete('/:id', deleteSession);
 
 export default router
