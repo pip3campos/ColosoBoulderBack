@@ -13,6 +13,7 @@ import passwordIsOk from '../middlewares/passwordIsOk.js';
 import generateToken from '../middlewares/generateToken.js';
 import signInValidator from '../schemas/signInSchema.js';
 import passport from '../middlewares/passport.js';
+import tokenHasExpired from '../middlewares/tokenHasExpired.js';
 
 let router = express.Router();
 
@@ -20,7 +21,7 @@ router.get('/', getClimbers);
 router.get('/me', getClimber);
 router.post('/register', validator(registerValidator), accountExists, createHash, registerClimber);
 router.put('/signin', validator(signInValidator), accountNotExists, passwordIsOk, generateToken, signInClimber);
-router.put('/signout', passport.authenticate('jwt', { session: false }), signOutClimber);
+router.put('/signout', tokenHasExpired, passport.authenticate('jwt', { session: false }), signOutClimber);
 router.put("/verify/:verify_code", verifyAccount)
 router.delete('/:id', deleteClimber);
 
