@@ -29,11 +29,19 @@ async function getSession(req,res,next){
     const { id } = req.params
     try {
         const session = await Session.findById(id).populate('category_id instructor_id')
-        return res.status(200).json({
-            success: true,
-            response: session,
-            message: `Here is the session finded by the id: ${id}`
-        })
+        if (session) {
+            return res.status(200).json({
+                success: true,
+                response: session,
+                message: `Here is the session found by the id: ${id}`
+            })
+        } else {
+            return res.status(404).json({
+                success: true,
+                response: session,
+                message: `There is no session with the id: ${id}`
+            })
+        }
         
     } catch (error) {
         console.log(error)

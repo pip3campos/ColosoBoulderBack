@@ -1,5 +1,4 @@
 import pkg from 'transbank-sdk'
-import Climber from '../models/Climber.js';
 const { WebpayPlus } = pkg;
 const { Options, IntegrationApiKeys, Environment, IntegrationCommerceCodes } = pkg
 
@@ -29,7 +28,6 @@ async function statusOrder (req,res,next) {
     try {
         const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
         const response = await tx.status(token)
-        /* const climber = await Climber.findOneAndUpdate({ email: email }, { online:true }, { new:true }) */
         res.send(response)
     } catch (error) {
         console.log(error)
