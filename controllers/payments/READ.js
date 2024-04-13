@@ -2,10 +2,10 @@ import Payment from "../../models/Payment.js"
 
 async function getPayments(req,res,next){
     const { user } = req.query
-    let queries = user ? user : null
+    let queries = user ? {user} : {}
     try {
         const payments = await Payment.find(queries).populate('user')
-        if (payments && queries) {
+        if (payments && user) {
             return res.status(200).json({
                 success: true,
                 response: payments,
