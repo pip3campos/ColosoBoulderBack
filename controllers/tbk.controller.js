@@ -24,9 +24,10 @@ async function createOrder (req,res,next) {
 }
 
 async function statusOrder (req,res,next) {
+    console.log(req.query)
     const { token } = req.query
     try {
-        const tx = await (new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration)))
+        const tx = new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration))
         const response = await tx.status(token)
         res.send(response)
     } catch (error) {
